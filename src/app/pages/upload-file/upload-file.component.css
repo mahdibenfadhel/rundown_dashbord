@@ -1,0 +1,6 @@
+.bg-gradient-rundown{
+  background: linear-gradient(87deg, #1E2E50 0, #1985A1 100%) !important;
+}
+.place-content-center{
+  place-content: center!important;
+}
