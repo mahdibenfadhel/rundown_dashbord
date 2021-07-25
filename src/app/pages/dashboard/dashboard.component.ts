@@ -8,6 +8,8 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import {UsersService} from '../../services/users.service';
+import {OrdersService} from '../../services/orders.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,18 +17,38 @@ import {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  constructor(private userService: UsersService,
+              private orderService: OrdersService) {  }
   public datasets: any;
+  public users: any = [];
+  public orders: any = [];
+  public ordersSinceYesterday: any = [];
+  public usersSinceLastWeek: any = 0;
   public data: any;
+  public ordersChart: any = [];
   public salesChart;
-  public clicked: boolean = true;
-  public clicked1: boolean = false;
+  public clicked = true;
+  public clicked1 = false;
 
   ngOnInit() {
-
+this.userService.getUsers().subscribe(res => {
+  this.users = res;
+});
+ this.userService.getUsersSinceLastWeek().subscribe(res => {
+  this.usersSinceLastWeek = res;
+});
+    this.orderService.getOrders().subscribe(res => {
+  this.orders = res.data;
+});
+    this.orderService.getOrdersSinceYesterday().subscribe(res => {
+  this.ordersSinceYesterday = res;
+});
+ this.orderService.getOrdersChart().subscribe(res => {
+  this.ordersChart = res;
+});
     this.datasets = [
-      [0, 20, 10, 30, 15, 40, 20, 60, 60],
-      [0, 20, 5, 25, 10, 30, 15, 40, 40]
+      this.ordersChart,
+      this.ordersChart
     ];
     this.data = this.datasets[0];
 

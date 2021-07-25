@@ -299,7 +299,7 @@ export const chartExample1 = {
     }
   },
   data: {
-    labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: ['MPC', 'ECB', 'FOMC', 'RBA', 'BOC', 'RBNZ'],
     datasets: [{
       label: 'Performance',
       data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
