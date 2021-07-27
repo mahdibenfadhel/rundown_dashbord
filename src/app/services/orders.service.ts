@@ -13,6 +13,9 @@ export class OrdersService {
   getOrders(): Observable<any> {
     return this.apiService.get('order/allOrders');
   }
+  getOrdersById(userId): Observable<any> {
+    return this.apiService.get('order/getOrdersByUser/' + userId);
+  }
 getOrdersSinceYesterday(): Observable<any> {
     return this.apiService.get('order/allOrdersSinceYesterday');
   }

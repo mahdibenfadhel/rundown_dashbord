@@ -26,9 +26,9 @@ export class DashboardComponent implements OnInit {
   public usersSinceLastWeek: any = 0;
   public data: any;
   public ordersChart: any = [];
+  public userOrders: any = [];
   public salesChart;
   public clicked = true;
-  public clicked1 = false;
 
   ngOnInit() {
 this.userService.getUsers().subscribe(res => {
@@ -45,38 +45,50 @@ this.userService.getUsers().subscribe(res => {
 });
  this.orderService.getOrdersChart().subscribe(res => {
   this.ordersChart = res;
+  this.data = {
+     labels: ['MPC', 'ECB', 'FOMC', 'RBA', 'BOC', 'RBNZ'],
+       datasets: [
+       {
+         label: "Sales",
+         data: res
+       }
+     ]
+   };
+   var chartSales = document.getElementById('chart-sales');
+console.log(this.data)
+   var chartOrders = document.getElementById('chart-orders');
+
+   parseOptions(Chart, chartOptions());
+
+
+   var ordersChart = new Chart(chartOrders, {
+     type: 'bar',
+     options: chartExample2.options,
+     data: this.data
+   });
+   this.salesChart = new Chart(chartSales, {
+     type: 'line',
+     options: chartExample1.options,
+     data: this.data
+   });
 });
     this.datasets = [
       this.ordersChart,
       this.ordersChart
     ];
-    this.data = this.datasets[0];
 
-
-    var chartOrders = document.getElementById('chart-orders');
-
-    parseOptions(Chart, chartOptions());
-
-
-    var ordersChart = new Chart(chartOrders, {
-      type: 'bar',
-      options: chartExample2.options,
-      data: chartExample2.data
-    });
-
-    var chartSales = document.getElementById('chart-sales');
-
-    this.salesChart = new Chart(chartSales, {
-			type: 'line',
-			options: chartExample1.options,
-			data: chartExample1.data
-		});
   }
 
 
   public updateOptions() {
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
+  }
+
+  getOrders(id) {
+    this.orderService.getOrdersById(id).subscribe( res => {
+      this.userOrders = res;
+    });
   }
 
 }

@@ -10,6 +10,7 @@ export class UploadFileComponent implements OnInit {
 
   constructor(private auctionService: AuctionService) { }
   fileName = '';
+  fileName2 = '';
 
   ngOnInit(): void {
   }
@@ -23,6 +24,18 @@ export class UploadFileComponent implements OnInit {
       const formData = new FormData();
       formData.append('file', file);
       this.auctionService.setAuctionFile(formData).subscribe();
+    }
+  }
+  onFileSelected2(event) {
+
+    const file: File = event.target.files[0];
+
+    if (file) {
+
+      this.fileName2 = file.name;
+      const formData = new FormData();
+      formData.append('file', file);
+      this.auctionService.setOrderFile(formData).subscribe();
     }
   }
 }
