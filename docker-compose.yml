@@ -1,0 +1,7 @@
+version: '3.3'
+services:
+  dashboard-docker:
+    container_name: rundowndashboard
+    build: .
+    ports:
+      - '4201:80'

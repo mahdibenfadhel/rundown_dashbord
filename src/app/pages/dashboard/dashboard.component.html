@@ -89,12 +89,12 @@
                 <th scope="col">created at</th>
                 <th scope="col">email</th>
                 <th scope="col">last action</th>
-                <th scope="col">see orders</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let u of users">
-                <th scope="row">
+                <th  scope="row">
                   {{u.name}}
                 </th>
                 <td>
@@ -107,7 +107,8 @@
                   {{u.last_action | date:'dd/MM/yyyy hh:mm a'}}
                 </td>
                <td>
-                 <button class="btn btn-primary" (click)="getOrders(u.id)">see</button>
+                 <button class="btn btn-primary" (click)="getOrders(u.id, true)">orders</button>
+                 <button class="btn btn-primary" (click)="getOrders(u.id, false)">alarms</button>
                 </td>
               </tr>
 
@@ -116,12 +117,12 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-12">
+    <div *ngIf="showOrders" class="col-xl-12">
       <div class="card shadow">
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col">
-              <h3 class="mb-0">orders</h3>
+              <h3 class="mb-0">Orders</h3>
             </div>
           </div>
         </div>
@@ -134,26 +135,63 @@
                 <th scope="col">rate</th>
                 <th scope="col">rate mid</th>
                 <th scope="col"></th>
-                <th scope="col">alarm</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let o of userOrders">
-                <th scope="row">
+                <th  *ngIf="!o.hasAlarm" scope="row">
                   {{o.auction.currency}}
                 </th>
-                <td>
+                <td  *ngIf="!o.hasAlarm">
                   {{o.rate}}
                 </td>
-                <td>
+                <td  *ngIf="!o.hasAlarm">
                   {{o.auction.rate_mid}}
                 </td>
-                <td>
+                <td  *ngIf="!o.hasAlarm">
                   <b class="pay" *ngIf="o.direction === 'pay'">P</b>
                   <b class="rec" *ngIf="o.direction === 'rec'">R</b>
+                </td >
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showAlarms" class="col-xl-12">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">Alarms</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">currency</th>
+                <th scope="col">rate</th>
+                <th scope="col">rate mid</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let o of userOrders" >
+                <th *ngIf="o.hasAlarm" scope="row">
+                  {{o.auction.currency}}
+                </th>
+                <td  *ngIf="o.hasAlarm">
+                  {{o.rate}}
                 </td>
-                <td>
-                  <i *ngIf="o.hasAlarm" class="ni ni-check-bold pay"></i>
+                <td  *ngIf="o.hasAlarm">
+                  {{o.auction.rate_mid}}
+                </td>
+                <td  *ngIf="o.hasAlarm">
+                  <b class="pay" *ngIf="o.direction === 'pay'">P</b>
+                  <b class="rec" *ngIf="o.direction === 'rec'">R</b>
                 </td>
               </tr>
             </tbody>

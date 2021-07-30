@@ -29,6 +29,8 @@ export class DashboardComponent implements OnInit {
   public userOrders: any = [];
   public salesChart;
   public clicked = true;
+  public showOrders = false;
+  public showAlarms = false;
 
   ngOnInit() {
 this.userService.getUsers().subscribe(res => {
@@ -85,10 +87,12 @@ console.log(this.data)
     this.salesChart.update();
   }
 
-  getOrders(id) {
+  getOrders(id, type) {
     this.orderService.getOrdersById(id).subscribe( res => {
       this.userOrders = res;
     });
+    this.showAlarms = !type;
+    this.showOrders = type;
   }
 
 }
