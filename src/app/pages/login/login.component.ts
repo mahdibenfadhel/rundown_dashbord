@@ -20,9 +20,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: this.password
     };
     this.userService.login(cred).subscribe( res => {
-      this.userService.setAuth(res.user, res.accessToken);
-      this.router.navigate(['/home']);
-    });
+      if (res.user.isAdmin) {
+        this.userService.setAuth(res.user, res.accessToken);
+        this.router.navigate(['/home']);
+      } else {
+        alert('invalid creds');
+      }
+    },
+      err => alert('invalid creds'));
   }
   ngOnDestroy() {
   }

@@ -7,7 +7,7 @@ import {
   parseOptions,
   chartExample1,
   chartExample2
-} from "../../variables/charts";
+} from '../../variables/charts';
 import {UsersService} from '../../services/users.service';
 import {OrdersService} from '../../services/orders.service';
 
