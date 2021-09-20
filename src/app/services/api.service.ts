@@ -5,6 +5,11 @@ const httpOptions = {
   headers: new HttpHeaders({
   }),
 };
+const httpOptions2 = {
+  headers: new HttpHeaders({
+    'Content-Type': 'multipart/form-data'
+  }),
+};
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +28,9 @@ export class ApiService {
   }
   post(path: string, body: object = {}): Observable<any> {
     return this.http.post(this.url + path, body, httpOptions);
+  }
+  postFile(path: string, body: object = {}): Observable<any> {
+    return this.http.post(this.url + path, body, httpOptions2);
   }
   delete(path: string): Observable<any> {
     return this.http.delete(this.url + path, httpOptions);
