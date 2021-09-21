@@ -13,6 +13,7 @@ export class UploadFileComponent implements OnInit {
   fileName2 = '';
 
   ngOnInit(): void {
+    this.auctionService.me().subscribe()
   }
   onFileSelected(event) {
 
@@ -23,7 +24,10 @@ export class UploadFileComponent implements OnInit {
       this.fileName = file.name;
       const formData = new FormData();
       formData.append('file', file);
-      this.auctionService.setAuctionFile(formData).subscribe();
+      this.auctionService.setAuctionFile(formData).subscribe(r => {
+        alert('successfully ' +  r.data);
+      },
+        error => alert('error, check you csv format'));
     }
   }
   onFileSelected2(event) {
@@ -35,7 +39,10 @@ export class UploadFileComponent implements OnInit {
       this.fileName2 = file.name;
       const formData = new FormData();
       formData.append('file', file);
-      this.auctionService.setOrderFile(formData).subscribe();
+      this.auctionService.setOrderFile(formData).subscribe(r => {
+          alert('successfully ' +  r.data);
+        },
+        error => alert('error, check you csv format'));
     }
   }
 }

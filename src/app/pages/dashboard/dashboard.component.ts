@@ -21,6 +21,8 @@ export class DashboardComponent implements OnInit {
               private orderService: OrdersService) {  }
   public datasets: any;
   public users: any = [];
+  public chartFilters: any = [];
+  public chartValues: any = [];
   public orders: any = [];
   public ordersSinceYesterday: any = [];
   public usersSinceLastWeek: any = 0;
@@ -41,38 +43,42 @@ this.userService.getUsers().subscribe(res => {
 });
     this.orderService.getOrders().subscribe(res => {
   this.orders = res.data;
+  const currencies = [];
+  this.orders.forEach(o => {
+    currencies.push(o.auction.currency);
+  });
+      const counts = {};
+      for (const i of currencies) {
+        counts[i] = counts[i] ? counts[i] + 1 : 1;
+      }
+      this.chartFilters = currencies.filter(this.onlyUnique);
+      this.chartFilters.forEach(c => {
+        this.chartValues.push(counts[c]);
+      });
+      this.ordersChart = res;
+      this.data = {
+        labels: this.chartFilters,
+        datasets: [
+          {
+            label: 'Sales',
+            data: this.chartValues
+          }
+        ]
+      };
+      const chartOrders = document.getElementById('chart-orders');
+      parseOptions(Chart, chartOptions());
+
+      const ordersChart = new Chart(chartOrders, {
+        type: 'bar',
+        options: chartExample2.options,
+        data: this.data
+      });
 });
     this.orderService.getOrdersSinceYesterday().subscribe(res => {
   this.ordersSinceYesterday = res;
 });
  this.orderService.getOrdersChart().subscribe(res => {
-  this.ordersChart = res;
-  this.data = {
-     labels: ['MPC', 'ECB', 'FOMC', 'RBA', 'BOC', 'RBNZ'],
-       datasets: [
-       {
-         label: "Sales",
-         data: res
-       }
-     ]
-   };
-   var chartSales = document.getElementById('chart-sales');
-console.log(this.data)
-   var chartOrders = document.getElementById('chart-orders');
 
-   parseOptions(Chart, chartOptions());
-
-
-   var ordersChart = new Chart(chartOrders, {
-     type: 'bar',
-     options: chartExample2.options,
-     data: this.data
-   });
-   this.salesChart = new Chart(chartSales, {
-     type: 'line',
-     options: chartExample1.options,
-     data: this.data
-   });
 });
     this.datasets = [
       this.ordersChart,
@@ -94,5 +100,7 @@ console.log(this.data)
     this.showAlarms = !type;
     this.showOrders = type;
   }
-
+  onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
 }

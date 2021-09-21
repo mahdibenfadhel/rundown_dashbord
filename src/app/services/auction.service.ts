@@ -11,10 +11,12 @@ export class AuctionService {
   }
 
   setAuctionFile(file): Observable<any> {
-    return this.apiService.postFile('auction/file', file);
+    return this.apiService.post('auction/file', file);
   }
   setOrderFile(file): Observable<any> {
-    return this.apiService.postFile('auction/orderFile', file);
+    return this.apiService.post('auction/orderFile', file);
   }
-
+  me(): Observable<any> {
+    return this.apiService.get('api/auth/me');
+  }
 }

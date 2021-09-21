@@ -31,9 +31,9 @@ export class SidebarComponent implements OnInit {
    });
   }
 
-  logout(){
+  logout() {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.reload();
+    this.router.navigate(['/login']);
   }
 }
