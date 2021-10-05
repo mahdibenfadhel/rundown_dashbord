@@ -109,7 +109,8 @@
                <td>
                  <button class="btn btn-primary" (click)="getOrders(u.id, true)">orders</button>
                  <button class="btn btn-primary" (click)="getOrders(u.id, false)">alarms</button>
-                </td>
+                 <button *ngIf="!u.isAdmin" class="btn btn-danger p-0" (click)="deleteUser(u.id)"><i class="ni ni-fat-remove custom"></i></button>
+             </td>
               </tr>
 
             </tbody>
@@ -152,6 +153,9 @@
                   <b class="pay" *ngIf="o.direction === 'pay'">P</b>
                   <b class="rec" *ngIf="o.direction === 'rec'">R</b>
                 </td >
+                <td  *ngIf="!o.hasAlarm">
+                  <button class="btn btn-danger p-0" (click)="deleteOrder(o.id)"><i class="ni ni-fat-remove custom"></i></button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -192,6 +196,9 @@
                 <td  *ngIf="o.hasAlarm">
                   <b class="pay" *ngIf="o.direction === 'pay'">P</b>
                   <b class="rec" *ngIf="o.direction === 'rec'">R</b>
+                </td>
+                <td  *ngIf="o.hasAlarm">
+                  <button class="btn btn-danger p-0" (click)="deleteOrder(o.id)"><i class="ni ni-fat-remove custom"></i></button>
                 </td>
               </tr>
             </tbody>

@@ -22,5 +22,8 @@ getOrdersSinceYesterday(): Observable<any> {
 getOrdersChart(): Observable<any> {
     return this.apiService.get('order/ordersChart');
   }
+delete0rder(id): Observable<any> {
+    return this.apiService.delete('order/' + id);
+  }
 
 }

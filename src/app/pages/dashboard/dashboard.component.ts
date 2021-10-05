@@ -103,4 +103,14 @@ this.userService.getUsers().subscribe(res => {
   onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
   }
+  deleteUser(id) {
+this.userService.deleteUser(id).subscribe(res => {
+  this.ngOnInit();
+});
+  }
+  deleteOrder(id) {
+this.orderService.delete0rder(id).subscribe(res => {
+window.location.reload();
+});
+  }
 }

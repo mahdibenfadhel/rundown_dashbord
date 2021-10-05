@@ -81,5 +81,8 @@ export class UsersService {
  getUsersSinceLastWeek(): Observable < any > {
     return this.apiService.get('api/auth/usersSinceLastWeek');
   }
+ deleteUser(id): Observable < any > {
+    return this.apiService.delete('api/auth/delete/' + id);
+  }
 
 }
