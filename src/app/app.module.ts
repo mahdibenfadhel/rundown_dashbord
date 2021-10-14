@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { UploadFileComponent } from './pages/upload-file/upload-file.component';
 import {ErrorInterceptor} from './interceptors/error-interceptor';
+import { AuctionComponent } from './pages/auction/auction.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {ErrorInterceptor} from './interceptors/error-interceptor';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    UploadFileComponent
+    UploadFileComponent,
+    AuctionComponent
   ],
   providers: [  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]

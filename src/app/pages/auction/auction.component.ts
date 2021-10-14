@@ -1,0 +1,41 @@
+import { Component, OnInit } from '@angular/core';
+import {UsersService} from '../../services/users.service';
+import {OrdersService} from '../../services/orders.service';
+import {chartExample2, chartOptions, parseOptions} from '../../variables/charts';
+import {AuctionService} from '../../services/auction.service';
+
+@Component({
+  selector: 'app-auction',
+  templateUrl: './auction.component.html',
+  styleUrls: ['./auction.component.css']
+})
+export class AuctionComponent implements OnInit {
+  constructor(private userService: UsersService,
+    private auctionService: AuctionService) {  }
+public auctions: any = [];
+
+  ngOnInit() {
+this.auctionService.getAllAuctions().subscribe(res => {
+      this.auctions = res;
+  this.auctions.forEach(a => {
+    a.auction_cutoff = a.auction_cutoff.substring(0, a.auction_cutoff.length - 1);
+  });
+});
+  }
+
+  deleteAuction(id) {
+    this.auctionService.deleteAuction(id).subscribe(res => {
+      this.ngOnInit();
+    });
+  }
+  editAuction(auction, text, element) {
+      auction[element] = text;
+      console.log(auction);
+  }
+  saveAuction(auction) {
+ this.auctionService.editAuction(auction.id, auction).subscribe(res => {
+   alert('changed successfully');
+ },
+   error => alert('Error!! check your values'));
+  }
+}

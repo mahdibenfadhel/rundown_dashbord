@@ -1,0 +1,12 @@
+.bg-gradient-rundown{
+  background: linear-gradient(87deg, #1E2E50 0, #1985A1 100%) !important;
+}
+.rec{
+  color: red;
+}
+.pay{
+  color: green;
+}
+.custom{
+  font-size: 37px;
+}

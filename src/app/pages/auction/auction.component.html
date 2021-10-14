@@ -1,0 +1,61 @@
+<div class="header bg-gradient-rundown pb-8 pt-5 pt-md-8">
+
+</div>
+<div class="container-fluid mt--7">
+  <div class="row mt-5">
+    <div class="col-xl-12 mb-5 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">all Auctions</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <!-- Projects table -->
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">currency</th>
+              <th scope="col">start date</th>
+              <th scope="col">rate mid</th>
+              <th scope="col">auction cutoff</th>
+              <th scope="col">clearing house</th>
+              <th scope="col">fix</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let u of auctions">
+              <th  scope="row">
+                {{u.currency}}
+              </th>
+              <td >
+                <input type="date" value="{{u.rate_start}}" (change)="editAuction(u, $event.target.value, 'rate_start')">
+              </td>
+              <td contenteditable='true' (input)="editAuction(u, $event.target.innerHTML, 'rate_mid')">
+                {{u.rate_mid}}
+              </td>
+              <td >
+                <input type="datetime-local" value="{{u.auction_cutoff}}" (change)="editAuction(u, $event.target.value, 'auction_cutoff')">
+              </td>
+              <td contenteditable='true' (input)="editAuction(u, $event.target.innerHTML, 'cleared')">
+                {{u.cleared}}
+              </td>
+              <td contenteditable='true' (input)="editAuction(u, $event.target.innerHTML, 'fix')" >
+                {{u.fix}}
+              </td>
+              <td>
+                <button class="btn btn-danger p-0" (click)="deleteAuction(u.id)"><i class="ni ni-fat-remove custom"></i></button>
+                <button class="btn btn-success p-0" (click)="saveAuction(u)"><i class="ni ni-check-bold custom"></i></button>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
