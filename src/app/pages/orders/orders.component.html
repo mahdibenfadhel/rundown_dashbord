@@ -8,7 +8,7 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col">
-              <h3 class="mb-0">all Auctions</h3>
+              <h3 class="mb-0">all Trades</h3>
             </div>
           </div>
         </div>
@@ -21,34 +21,33 @@
               <th scope="col">start date</th>
               <th scope="col">rate mid</th>
               <th scope="col">auction cutoff</th>
-              <th scope="col">clearing house</th>
-              <th scope="col">fix</th>
+              <th scope="col">user</th>
+              <th scope="col">direction</th>
               <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let u of auctions">
               <th  scope="row">
-                {{u.currency}}
+                {{u.auction.currency}}
               </th>
               <td >
-                <input type="date" value="{{u.rate_start}}" (change)="editAuction(u, $event.target.value, 'rate_start')">
-              </td>
-              <td contenteditable='true' (input)="editAuction(u, $event.target.innerHTML, 'rate_mid')">
-                {{u.rate_mid}}
+                {{u.auction.rate_start | date:'dd-M-yyyy'}}
               </td>
               <td >
-                <input type="datetime-local" value="{{u.auction_cutoff}}" (change)="editAuction(u, $event.target.value, 'auction_cutoff')">
+                {{u.rate}}
               </td>
-              <td contenteditable='true' (input)="editAuction(u, $event.target.innerHTML, 'cleared')">
-                {{u.cleared}}
+              <td >
+                {{u.auction.auction_cutoff | date:'dd-M-yyyy hh:mm a'}}
               </td>
-              <td contenteditable='true' (input)="editAuction(u, $event.target.innerHTML, 'fix')" >
-                {{u.fix}}
+              <td >
+               mahdi
+              </td>
+              <td>
+                {{u.direction}}
               </td>
               <td>
                 <button class="btn btn-danger p-0" (click)="open(content, u.id)"><i class="ni ni-fat-remove custom"></i></button>
-                <button class="btn btn-success p-0" (click)="saveAuction(u)"><i class="ni ni-check-bold custom"></i></button>
               </td>
             </tr>
 
@@ -66,7 +65,7 @@
       <span aria-hidden="true">&times;</span></button>
   </div>
   <div class="modal-body">
-    <h4 class="my-4">Are you sure you want to delete auction?</h4>  </div>
+    <h4 class="my-4">Are you sure you want to delete trade?</h4>  </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">Cancel</button>
     <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('Save click')">Confirm</button>

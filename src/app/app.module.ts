@@ -15,6 +15,7 @@ import { ComponentsModule } from './components/components.module';
 import { UploadFileComponent } from './pages/upload-file/upload-file.component';
 import {ErrorInterceptor} from './interceptors/error-interceptor';
 import { AuctionComponent } from './pages/auction/auction.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AuctionComponent } from './pages/auction/auction.component';
     AdminLayoutComponent,
     AuthLayoutComponent,
     UploadFileComponent,
-    AuctionComponent
+    AuctionComponent,
+    OrdersComponent
   ],
   providers: [  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]

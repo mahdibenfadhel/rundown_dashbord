@@ -3,6 +3,7 @@ import {UsersService} from '../../services/users.service';
 import {OrdersService} from '../../services/orders.service';
 import {chartExample2, chartOptions, parseOptions} from '../../variables/charts';
 import {AuctionService} from '../../services/auction.service';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-auction',
@@ -11,9 +12,10 @@ import {AuctionService} from '../../services/auction.service';
 })
 export class AuctionComponent implements OnInit {
   constructor(private userService: UsersService,
+    private modalService: NgbModal,
     private auctionService: AuctionService) {  }
 public auctions: any = [];
-
+closeResult = '';
   ngOnInit() {
 this.auctionService.getAllAuctions().subscribe(res => {
       this.auctions = res;
@@ -37,5 +39,22 @@ this.auctionService.getAllAuctions().subscribe(res => {
    alert('changed successfully');
  },
    error => alert('Error!! check your values'));
+  }
+  open(content, id) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason, id)}`;
+    });
+  }
+
+  private getDismissReason(reason: any, id): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      this.deleteAuction(id);
+    }
   }
 }
