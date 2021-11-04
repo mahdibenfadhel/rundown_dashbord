@@ -12,6 +12,16 @@
             </div>
           </div>
         </div>
+        <div class="form-group p-3">
+          <strong>Name(email)</strong>
+          <select class="form-control"
+                  [(ngModel)]="user">
+            <option></option>
+            <option [value]="user.email" *ngFor="let user of users"> {{user.name}} ({{user.email}})</option>
+          </select>
+        </div>
+
+        <br/><br/>
         <div class="table-responsive">
           <!-- Projects table -->
           <table class="table align-items-center table-flush">
@@ -27,7 +37,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let u of auctions">
+            <tr *ngFor="let u of auctions  | tableFilter: user">
               <th  scope="row">
                 {{u.auction.currency}}
               </th>
@@ -41,7 +51,7 @@
                 {{u.auction.auction_cutoff | date:'dd-M-yyyy hh:mm a'}}
               </td>
               <td >
-               mahdi
+                {{u.user?.name}}({{u.user?.email}})
               </td>
               <td>
                 {{u.direction}}

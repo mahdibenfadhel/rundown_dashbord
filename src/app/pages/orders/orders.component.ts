@@ -14,8 +14,13 @@ export class OrdersComponent implements OnInit {
               private modalService: NgbModal,
               private orderService: OrdersService) {  }
   public auctions: any = [];
+  user: any = null;
+  users: any = [];
   closeResult = '';
   ngOnInit() {
+    this.userService.getUsers().subscribe(res => {
+      this.users = res;
+    });
     this.orderService.getOrders().subscribe(res => {
       this.auctions = res.data;
       this.auctions.forEach(a => {
@@ -43,7 +48,7 @@ export class OrdersComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      this.deleteAuction(id)
+      this.deleteAuction(id);
     }
   }
 }

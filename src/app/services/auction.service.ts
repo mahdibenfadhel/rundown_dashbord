@@ -9,7 +9,9 @@ import { Observable } from 'rxjs';
 export class AuctionService {
   constructor(private apiService: ApiService) {
   }
-
+  addAuction(body): Observable<any> {
+    return this.apiService.post('auction', body);
+  }
   setAuctionFile(file): Observable<any> {
     return this.apiService.post('auction/file', file);
   }
@@ -19,8 +21,8 @@ export class AuctionService {
   deleteAuction(id): Observable<any> {
     return this.apiService.delete('auction/' + id);
   }
-  setOrderFile(file): Observable<any> {
-    return this.apiService.post('auction/orderFile', file);
+  setOrderFile(file, userId): Observable<any> {
+    return this.apiService.post('auction/orderFile/' + userId, file);
   }
   getAllAuctions(): Observable<any> {
     return this.apiService.get('auction');

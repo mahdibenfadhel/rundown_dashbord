@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -16,25 +16,28 @@ import { UploadFileComponent } from './pages/upload-file/upload-file.component';
 import {ErrorInterceptor} from './interceptors/error-interceptor';
 import { AuctionComponent } from './pages/auction/auction.component';
 import { OrdersComponent } from './pages/orders/orders.component';
+import { TableFilterPipe } from './table-filter.pipe';
 
 
 @NgModule({
-  imports: [
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    ComponentsModule,
-    NgbModule,
-    RouterModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        ComponentsModule,
+        NgbModule,
+        RouterModule,
+        AppRoutingModule,
+        ReactiveFormsModule
+    ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
     UploadFileComponent,
     AuctionComponent,
-    OrdersComponent
+    OrdersComponent,
+    TableFilterPipe
   ],
   providers: [  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]

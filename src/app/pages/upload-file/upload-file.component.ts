@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuctionService} from '../../services/auction.service';
+import {UsersService} from '../../services/users.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-upload-file',
@@ -7,13 +9,21 @@ import {AuctionService} from '../../services/auction.service';
   styleUrls: ['./upload-file.component.css']
 })
 export class UploadFileComponent implements OnInit {
+users = [];
+  userForm: FormGroup;
 
-  constructor(private auctionService: AuctionService) { }
+  constructor(private fb: FormBuilder, private auctionService: AuctionService, private userService: UsersService) { }
   fileName = '';
   fileName2 = '';
 
   ngOnInit(): void {
-    this.auctionService.me().subscribe()
+    this.userForm = this.fb.group({
+      userId: [null]
+    });
+    this.auctionService.me().subscribe();
+    this.userService.getUsers().subscribe(res => {
+      this.users = res;
+    });
   }
   onFileSelected(event) {
 
@@ -39,10 +49,14 @@ export class UploadFileComponent implements OnInit {
       this.fileName2 = file.name;
       const formData = new FormData();
       formData.append('file', file);
-      this.auctionService.setOrderFile(formData).subscribe(r => {
-          alert('successfully ' +  r.data);
-        },
-        error => alert('error, check you csv format'));
+      if (this.userForm.value.userId) {
+        this.auctionService.setOrderFile(formData, this.userForm.value.userId).subscribe(r => {
+            alert('successfully ' + r.data);
+          },
+          error => alert('error, check you csv format'));
+      } else {
+        alert('please select a user  ' + this.userForm.value.userId);
+      }
     }
   }
 }
