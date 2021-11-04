@@ -22,7 +22,7 @@ export class OrdersComponent implements OnInit {
       this.users = res;
     });
     this.orderService.getOrders().subscribe(res => {
-      this.auctions = res.data;
+      this.auctions = res.data.filter(a => a.isFromAdmin === true);
       this.auctions.forEach(a => {
         a.auction.auction_cutoff = a.auction_cutoff.substring(0, a.auction_cutoff.length - 1);
       });
