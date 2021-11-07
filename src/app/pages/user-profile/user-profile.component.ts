@@ -27,6 +27,8 @@ export class UserProfileComponent implements OnInit {
   addAuction() {
     if (this.auctionForm.valid) {
       this.auctionService.addAuction({...this.auctionForm.value, fromAdmin: false}).subscribe(res => {
+        alert('add 1 new auctions');
+        window.location.href = '#/auction';
       }, err => {
         alert(err.error.message);
       });
