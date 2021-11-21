@@ -109,7 +109,7 @@
                <td>
                  <button class="btn btn-primary" (click)="getOrders(u.id, true)">orders</button>
                  <button class="btn btn-primary" (click)="getOrders(u.id, false)">alarms</button>
-                 <button *ngIf="!u.isAdmin" class="btn btn-danger p-0" (click)="deleteUser(u.id)"><i class="ni ni-fat-remove custom"></i></button>
+                 <button *ngIf="!u.isAdmin" class="btn btn-danger p-0" (click)="open(content, u.id)"><i class="ni ni-fat-remove custom"></i></button>
              </td>
               </tr>
 
@@ -208,3 +208,16 @@
     </div>
   </div>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm ?</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.close('Cross click')">
+      <span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body">
+    <h4 class="my-4">Are you sure you want to delete user?</h4>  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss('Save click')">Confirm</button>
+  </div>
+</ng-template>

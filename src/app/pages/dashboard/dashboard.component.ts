@@ -10,6 +10,7 @@ import {
 } from '../../variables/charts';
 import {UsersService} from '../../services/users.service';
 import {OrdersService} from '../../services/orders.service';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,8 +19,10 @@ import {OrdersService} from '../../services/orders.service';
 })
 export class DashboardComponent implements OnInit {
   constructor(private userService: UsersService,
+              private modalService: NgbModal,
               private orderService: OrdersService) {  }
   public datasets: any;
+  closeResult = '';
   public users: any = [];
   public chartFilters: any = [];
   public chartValues: any = [];
@@ -87,7 +90,13 @@ this.userService.getUsers().subscribe(res => {
 
   }
 
-
+  open(content, id) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason, id)}`;
+    });
+  }
   public updateOptions() {
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
@@ -112,5 +121,14 @@ this.userService.deleteUser(id).subscribe(res => {
 this.orderService.delete0rder(id).subscribe(res => {
 window.location.reload();
 });
+  }
+  private getDismissReason(reason: any, id): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      this.deleteUser(id);
+    }
   }
 }
