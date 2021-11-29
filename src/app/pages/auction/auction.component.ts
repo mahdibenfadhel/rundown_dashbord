@@ -18,7 +18,7 @@ public auctions: any = [];
 closeResult = '';
   ngOnInit() {
 this.auctionService.getAllAuctions().subscribe(res => {
-      this.auctions = res;
+  this.auctions = res.filter(a => a.fromAdmin === false);
   this.auctions.forEach(a => {
     a.auction_cutoff = a.auction_cutoff.substring(0, a.auction_cutoff.length - 1);
   });
