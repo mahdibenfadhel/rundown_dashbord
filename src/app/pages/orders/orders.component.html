@@ -32,6 +32,8 @@
               <th scope="col">rate mid</th>
               <th scope="col">auction cutoff</th>
               <th scope="col">user</th>
+              <th scope="col">notional</th>
+              <th scope="col">dv01</th>
               <th scope="col">direction</th>
               <th scope="col"></th>
             </tr>
@@ -52,6 +54,12 @@
               </td>
               <td >
                 {{u.user?.name}}({{u.user?.email}})
+              </td>
+              <td  >
+                {{u.notional | number: '1.0-0'}}
+              </td>
+              <td >
+                {{u.dv01 | number: '1.0-0'}}
               </td>
               <td>
                 {{u.direction}}

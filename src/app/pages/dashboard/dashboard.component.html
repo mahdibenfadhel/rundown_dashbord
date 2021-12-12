@@ -135,6 +135,9 @@
                 <th scope="col">currency</th>
                 <th scope="col">rate</th>
                 <th scope="col">rate mid</th>
+                <th scope="col">direction</th>
+                <th scope="col">notional</th>
+                <th scope="col">dv01</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -153,6 +156,12 @@
                   <b class="pay" *ngIf="o.direction === 'pay'">P</b>
                   <b class="rec" *ngIf="o.direction === 'rec'">R</b>
                 </td >
+                <td  *ngIf="!o.hasAlarm">
+                  {{o.notional | number: '1.0-0'}}
+                </td>
+                <td  *ngIf="!o.hasAlarm">
+                  {{o.dv01 | number: '1.0-0'}}
+                </td>
                 <td  *ngIf="!o.hasAlarm">
                   <button class="btn btn-danger p-0" (click)="deleteOrder(o.id)"><i class="ni ni-fat-remove custom"></i></button>
                 </td>
@@ -179,6 +188,9 @@
                 <th scope="col">currency</th>
                 <th scope="col">rate</th>
                 <th scope="col">rate mid</th>
+                <th scope="col">direction</th>
+                <th scope="col">notional</th>
+                <th scope="col">dv01</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -196,6 +208,12 @@
                 <td  *ngIf="o.hasAlarm">
                   <b class="pay" *ngIf="o.direction === 'pay'">P</b>
                   <b class="rec" *ngIf="o.direction === 'rec'">R</b>
+                </td>
+                <td  *ngIf="o.hasAlarm">
+                  {{o.notional | number: '1.0-0'}}
+                </td>
+                <td  *ngIf="o.hasAlarm">
+                  {{o.dv01 | number: '1.0-0'}}
                 </td>
                 <td  *ngIf="o.hasAlarm">
                   <button class="btn btn-danger p-0" (click)="deleteOrder(o.id)"><i class="ni ni-fat-remove custom"></i></button>
