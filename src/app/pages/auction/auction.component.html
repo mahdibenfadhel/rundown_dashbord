@@ -34,16 +34,16 @@
               <td >
                 <input type="date" value="{{u.rate_start}}" (change)="editAuction(u, $event.target.value, 'rate_start')">
               </td>
-              <td contenteditable='true' (input)="editAuction(u, $event.target.innerHTML, 'rate_mid')">
-                {{u.rate_mid}}
+              <td>
+                <input type="number" value="{{u.rate_mid}}" (change)="editAuction(u, $event.target.value, 'rate_mid')">
               </td>
               <td >
                 <input type="datetime-local" value="{{u.auction_cutoff}}" (change)="editAuction(u, $event.target.value, 'auction_cutoff')">
               </td>
-              <td contenteditable='true' (input)="editAuction(u, $event.target.innerHTML, 'cleared')">
+              <td >
                 {{u.cleared}}
               </td>
-              <td contenteditable='true' (input)="editAuction(u, $event.target.innerHTML, 'fix')" >
+              <td>
                 {{u.fix}}
               </td>
               <td>

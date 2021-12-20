@@ -24,7 +24,7 @@ export class OrdersComponent implements OnInit {
     this.orderService.getOrders().subscribe(res => {
       this.auctions = res.data.filter(a => a.isFromAdmin === true);
       this.auctions.forEach(a => {
-        a.auction.auction_cutoff = a.auction_cutoff.substring(0, a.auction_cutoff.length - 1);
+        a.auction.auction_cutoff = a.auction.auction_cutoff.substring(0, a.auction.auction_cutoff.length - 1);
       });
     });
   }

@@ -143,26 +143,26 @@
             </thead>
             <tbody>
               <tr *ngFor="let o of userOrders">
-                <th  *ngIf="!o.hasAlarm" scope="row">
+                <th  *ngIf="!o.hasAlarm && !o.isFromAdmin" scope="row">
                   {{o.auction.currency}}
                 </th>
-                <td  *ngIf="!o.hasAlarm">
+                <td   *ngIf="!o.hasAlarm && !o.isFromAdmin">
                   {{o.rate}}
                 </td>
-                <td  *ngIf="!o.hasAlarm">
+                <td   *ngIf="!o.hasAlarm && !o.isFromAdmin">
                   {{o.auction.rate_mid}}
                 </td>
-                <td  *ngIf="!o.hasAlarm">
+                <td   *ngIf="!o.hasAlarm && !o.isFromAdmin">
                   <b class="pay" *ngIf="o.direction === 'pay'">P</b>
                   <b class="rec" *ngIf="o.direction === 'rec'">R</b>
                 </td >
-                <td  *ngIf="!o.hasAlarm">
+                <td   *ngIf="!o.hasAlarm && !o.isFromAdmin">
                   {{o.notional | number: '1.0-0'}}
                 </td>
-                <td  *ngIf="!o.hasAlarm">
+                <td   *ngIf="!o.hasAlarm && !o.isFromAdmin">
                   {{o.dv01 | number: '1.0-0'}}
                 </td>
-                <td  *ngIf="!o.hasAlarm">
+                <td   *ngIf="!o.hasAlarm && !o.isFromAdmin">
                   <button class="btn btn-danger p-0" (click)="deleteOrder(o.id)"><i class="ni ni-fat-remove custom"></i></button>
                 </td>
               </tr>
